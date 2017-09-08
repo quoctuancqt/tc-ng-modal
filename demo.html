@@ -1,0 +1,51 @@
+<html ng-app="mainApp">
+
+<head>
+    <title>AngularJS Modules</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-sanitize.min.js"></script>
+    <script src="modules/tc.modal/modal.js"></script>
+</head>
+
+<body ng-controller="mainCtrl">
+    <tc-modal configs="modalConfigs">
+        Hello, My name is Tuan!
+    </tc-modal>
+    <div>
+        <input type="radio" name="modalType" id="alertOption" value='alert' ng-model="modalConfigs.modalType"><label for="alertOption">Alert</label>
+    </div>
+    <div>
+        <input type="radio" name="modalType" id="confirmOption" value='confirm' ng-model="modalConfigs.modalType"><label for="confirmOption">Confirm</label>
+    </div>
+    <span>Modal Type: {{modalConfigs.modalType}}</span>
+    <button class="btn btn-primary" ng-click="showModal()">Show Modal</button>
+</body>
+
+<script type="text/javascript">
+    angular.module('mainApp', ['tc.modal'])
+        .controller('mainCtrl', ['$scope', 'ModalService', function ($scope, ModalService) {
+            $scope.modalConfigs = {
+                modalId: 'modal',
+                modalTitle: 'Demo',
+                modalType: 'alert',
+                hasFooter: true,
+                btnLabel: 'OK',
+                btnLabel: 'Cancel',
+                btnRightLabel: 'Submit'
+            }
+
+            $scope.showModal = function () {
+                ModalService.show($scope.modalConfigs.modalId);
+            }
+        }])
+
+</script>
+
+</html>
